@@ -9,7 +9,7 @@ export interface CartItem {
   quantity: number;
 }
 
-interface CartState {
+export interface CartState {
   items: CartItem[];
   isOpen: boolean;
   toggleOpen: () => void;
@@ -71,9 +71,7 @@ const useCartStore = create<CartState>((set) => ({
   clear: () => set({ items: [] }),
 }));
 
-const CartContext = createContext<ReturnType<typeof useCartStore> | null>(
-  null
-);
+const CartContext = createContext<CartState | null>(null);
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const store = useCartStore();
@@ -84,7 +82,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   );
 }
 
-export function useCart() {
+export function useCart(): CartState {
   const context = useContext(CartContext);
   if (!context) {
     throw new Error("useCart deve ser usado dentro de CartProvider");
