@@ -1,4 +1,4 @@
-// File: C:\Users\clove\OneDrive\Desktop\celma_construcoes\app\layout.tsx
+// File: C:\Users\clove\OneDrive\Documentos\GitHub\celma_construcoes\app\layout.tsx
 import * as entry from '../../../app/layout.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
