@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-type Panel = "cart" | "departments" | "support" | null;
+type Panel = "cart" | "departments" | "support" | "chat" | null;
 
 interface UiState {
   panel: Panel;
