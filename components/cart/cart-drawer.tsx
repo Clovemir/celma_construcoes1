@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useEffect } from "react";
+import { useUiStore } from "@/store/ui-store";
 import { X, Trash2, Minus, Plus } from "lucide-react";
 import { Sheet } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
@@ -10,6 +11,7 @@ import { useCart } from "@/store/cart-store";
 export function CartDrawer() {
   const {
     isOpen,
+    open,
     close,
     items,
     removeItem,
@@ -26,6 +28,16 @@ export function CartDrawer() {
     const totalCount = items.reduce((acc, item) => acc + item.quantity, 0);
     return { total: totalValue, count: totalCount };
   }, [items]);
+
+  // keep drawer open state in sync with global UI panel state
+  const panel = useUiStore((s) => s.panel);
+  useEffect(() => {
+    if (panel === "cart") {
+      open();
+    } else {
+      close();
+    }
+  }, [panel, open, close]);
 
   return (
     <Sheet

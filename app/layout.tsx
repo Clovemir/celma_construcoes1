@@ -5,6 +5,7 @@ import { Footer } from "@/components/layout/footer";
 import { CartProvider } from "@/store/cart-store";
 import { SupportWidget } from "@/components/support/support-widget";
 import { CartDrawer } from "@/components/cart/cart-drawer";
+import { ClientLayout } from "./client-layout";
 
 export const metadata: Metadata = {
   title: "Celma Construções | E-commerce",
@@ -19,7 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR">
-      <body className="min-h-screen bg-slate-950 text-slate-50">
+      <body className="min-h-screen bg-white dark:bg-slate-950 text-slate-950 dark:text-slate-50 transition-colors">
         <CartProvider>
           <div className="flex min-h-screen flex-col">
             <Header />
@@ -28,8 +29,7 @@ export default function RootLayout({
             </main>
             <Footer />
           </div>
-          <CartDrawer />
-          <SupportWidget />
+          <ClientLayout />
         </CartProvider>
       </body>
     </html>

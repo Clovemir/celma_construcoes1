@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
+  darkMode: "class", // allow toggling light/dark with a class on html or body
   content: [
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -19,6 +20,11 @@ const config: Config = {
           DEFAULT: "#111827",
           light: "#1f2937",
           accent: "#f97316",
+        },
+        neutral: {
+          50: "#f9fafb",
+          800: "#1f2937",
+          900: "#111827",
         },
       },
       boxShadow: {
