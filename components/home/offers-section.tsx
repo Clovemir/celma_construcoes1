@@ -26,7 +26,7 @@ export function OffersSection({ products }: OffersSectionProps) {
       <div className="relative flex-1 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-tr from-orange-500/20 via-transparent to-sky-500/10" />
 
-        <div className="relative grid h-full gap-4 p-5 md:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] md:p-7">
+        <div className="relative grid h-full gap-4 p-5 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] lg:p-7">
           <div className="flex flex-col justify-between gap-4">
             <div>
               <div className="mb-3 flex flex-wrap gap-1.5">
@@ -63,15 +63,15 @@ export function OffersSection({ products }: OffersSectionProps) {
 
             <div className="flex flex-col gap-3">
               <div>
-                <div className="flex items-baseline gap-2">
+                <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
                   <span className="text-2xl font-semibold text-slate-50 md:text-3xl">
                     {formatCurrencyBRL(featured.price)}
                   </span>
-                  <span className="text-xs text-slate-500">
+                  <span className="whitespace-nowrap text-xs text-slate-500">
                     / {featured.unit}
                   </span>
                   {featured.originalPrice && (
-                    <span className="text-xs text-slate-400 line-through">
+                    <span className="whitespace-nowrap text-xs text-slate-400 line-through">
                       {formatCurrencyBRL(featured.originalPrice)}
                     </span>
                   )}
