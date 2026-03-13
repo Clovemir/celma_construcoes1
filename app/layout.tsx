@@ -5,6 +5,7 @@ import { Footer } from "@/components/layout/footer";
 import { CartProvider } from "@/store/cart-store";
 import { SupportWidget } from "@/components/support/support-widget";
 import { CartDrawer } from "@/components/cart/cart-drawer";
+import { CategorySidebar } from "@/components/layout/category-sidebar";
 
 export const metadata: Metadata = {
   title: "Celma Construções | Materiais para Obra",
@@ -29,6 +30,7 @@ export default function RootLayout({
             <Footer />
           </div>
           <CartDrawer />
+          <CategorySidebar />
           <SupportWidget />
         </CartProvider>
       </body>
