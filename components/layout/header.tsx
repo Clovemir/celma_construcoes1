@@ -1,15 +1,31 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { ShoppingCart, Search, Phone, X, LayoutGrid } from "lucide-react";
-import { PRODUCTS } from "@/constants";
+import type { Product } from "@/constants";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/store/cart-store";
 import { useCategoryStore } from "@/store/category-store";
 import { formatCurrencyBRL } from "@/lib/utils";
 
+function normalizeProduct(row: any): Product {
+  return {
+    id: row.id,
+    name: row.name,
+    brand: row.brand,
+    price: parseFloat(row.price),
+    originalPrice: row.original_price ? parseFloat(row.original_price) : undefined,
+    discountTag: row.discount_tag ?? undefined,
+    highlight: row.highlight,
+    categoryId: row.category_id,
+    unit: row.unit,
+    stock: row.stock,
+  };
+}
+
 export function Header() {
+  const [products, setProducts] = useState<Product[]>([]);
   const [query, setQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState("");
   const [showSearchResults, setShowSearchResults] = useState(false);
@@ -18,6 +34,13 @@ export function Header() {
   const { toggle: toggleSidebar, activeCategory } = useCategoryStore();
 
   const totalItems = items.reduce((acc, item) => acc + item.quantity, 0);
+
+  useEffect(() => {
+    fetch("/api/products")
+      .then((r) => r.json())
+      .then((rows) => setProducts(rows.map(normalizeProduct)))
+      .catch(() => {});
+  }, []);
 
   function handleChange(value: string) {
     setQuery(value);
@@ -31,12 +54,14 @@ export function Header() {
   const searchResults = useMemo(() => {
     if (!debouncedQuery) return [];
     const q = debouncedQuery.toLowerCase();
-    return PRODUCTS.filter(
-      (p) =>
-        p.name.toLowerCase().includes(q) ||
-        p.brand.toLowerCase().includes(q)
-    ).slice(0, 6);
-  }, [debouncedQuery]);
+    return products
+      .filter(
+        (p) =>
+          p.name.toLowerCase().includes(q) ||
+          p.brand.toLowerCase().includes(q)
+      )
+      .slice(0, 6);
+  }, [debouncedQuery, products]);
 
   return (
     <header className="sticky top-0 z-40 border-b border-slate-800/80 bg-slate-950/95 backdrop-blur-xl">
