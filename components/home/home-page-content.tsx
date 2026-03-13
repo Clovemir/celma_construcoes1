@@ -37,7 +37,7 @@ export function HomePageContent({ products, brands, cities }: HomePageContentPro
 
       <div className="min-w-0 flex-1">
         <div className="space-y-8 px-4 py-6 md:px-6 md:py-8">
-          <section className="grid gap-5 md:grid-cols-[minmax(0,2fr)_minmax(0,1.2fr)]">
+          <section className="grid gap-5 lg:grid-cols-[minmax(0,2fr)_minmax(0,1.2fr)]">
             <OffersSection products={offers} />
 
             <div className="glass-panel relative overflow-hidden rounded-2xl p-5 md:p-6">
