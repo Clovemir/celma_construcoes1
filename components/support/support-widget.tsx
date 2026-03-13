@@ -1,25 +1,33 @@
 "use client";
 
 import { useState } from "react";
+import { useUiStore } from "@/store/ui-store";
 import { MessageCircle, X, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 export function SupportWidget() {
-  const [open, setOpen] = useState(false);
+  const panel = useUiStore((s) => s.panel);
+  const togglePanel = useUiStore((s) => s.togglePanel);
   const [message, setMessage] = useState("");
+
+  const open = panel === "support";
 
   return (
     <>
       <button
         className="fixed bottom-5 right-5 z-40 inline-flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-orange-500 to-amber-400 text-slate-950 shadow-soft hover:brightness-110 md:bottom-7 md:right-7"
-        onClick={() => setOpen((prev) => !prev)}
+        onClick={() => togglePanel("support")}
         aria-label="Abrir suporte"
       >
         <MessageCircle size={20} />
       </button>
       {open && (
-        <div className="fixed bottom-20 right-4 z-40 w-72 rounded-2xl border border-slate-800/90 bg-slate-950/98 shadow-soft md:bottom-24 md:right-7 md:w-80">
+        <div
+          role="dialog"
+          aria-modal="true"
+          className="fixed bottom-20 right-4 z-40 w-72 rounded-2xl border border-slate-800/90 bg-slate-950/98 shadow-soft md:bottom-24 md:right-7 md:w-80"
+        >
           <div className="flex items-center justify-between border-b border-slate-800/90 px-4 py-3">
             <div>
               <p className="text-xs font-semibold text-slate-50">
@@ -30,7 +38,7 @@ export function SupportWidget() {
               </p>
             </div>
             <button
-              onClick={() => setOpen(false)}
+              onClick={() => togglePanel(null)}
               className="text-slate-500 hover:text-slate-200"
             >
               <X size={14} />

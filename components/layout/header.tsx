@@ -1,7 +1,9 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
+import { useUiStore } from "@/store/ui-store";
 import { ShoppingCart, Search, ChevronDown, Menu } from "lucide-react";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { CATEGORIES, PRODUCTS } from "@/constants";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -13,8 +15,17 @@ export function Header() {
   const [query, setQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState("");
   const [showSearchResults, setShowSearchResults] = useState(false);
-  const [departmentsOpen, setDepartmentsOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const { panel, togglePanel, closePanel } = useUiStore();
+  const departmentsOpen = panel === "departments";
+
+  // whenever an overlay panel becomes active, hide mobile menu if open
+  useEffect(() => {
+    if (panel && mobileMenuOpen) {
+      setMobileMenuOpen(false);
+    }
+  }, [panel, mobileMenuOpen]);
   const { items, open } = useCart();
 
   const totalItems = items.reduce((acc, item) => acc + item.quantity, 0);
@@ -44,7 +55,12 @@ export function Header() {
         <div className="flex items-center gap-3">
           <button
             className="inline-flex items-center justify-center rounded-full border border-slate-800/80 bg-slate-900/80 p-2 text-slate-200 hover:bg-slate-800/80 md:hidden"
-            onClick={() => setMobileMenuOpen((prev) => !prev)}
+            onClick={() => {
+              setMobileMenuOpen((prev) => !prev);
+              if (!mobileMenuOpen) {
+                useUiStore.getState().closePanel();
+              }
+            }}
             aria-label="Abrir menu"
           >
             <Menu size={18} />
@@ -76,20 +92,23 @@ export function Header() {
               onBlur={() => setTimeout(() => setShowSearchResults(false), 150)}
             />
             {showSearchResults && searchResults.length > 0 && (
-              <div className="absolute left-0 right-0 top-11 z-30 rounded-2xl border border-slate-800/90 bg-slate-950/98 shadow-soft">
+              <div className="absolute left-0 right-0 top-11 z-30 rounded-2xl border border-slate-800/90 bg-slate-950/98 shadow-lg shadow-slate-950/50 backdrop-blur-sm">
                 <div className="px-3 py-2 text-[10px] font-medium uppercase tracking-[0.18em] text-slate-500">
-                  Resultados
+                  {searchResults.length} Resultado{searchResults.length !== 1 ? 's' : ''}
                 </div>
-                <ul className="divide-y divide-slate-800/80">
+                <ul className="divide-y divide-slate-800/50">
                   {searchResults.map((product) => (
                     <li
                       key={product.id}
-                      className="flex cursor-pointer items-center justify-between gap-3 px-3 py-2.5 text-xs text-slate-100 hover:bg-slate-900/90"
+                      className="flex cursor-pointer items-center justify-between gap-3 px-3 py-2.5 text-xs text-slate-100 hover:bg-slate-900/60 transition-colors group"
                     >
-                      <span className="line-clamp-1 font-medium">
-                        {product.name}
-                      </span>
-                      <span className="whitespace-nowrap text-[11px] text-slate-300">
+                      <div className="flex-1">
+                        <span className="line-clamp-1 font-medium group-hover:text-orange-300 transition-colors">
+                          {product.name}
+                        </span>
+                        <p className="text-[10px] text-slate-500">{product.brand}</p>
+                      </div>
+                      <span className="whitespace-nowrap text-[11px] font-semibold text-orange-400">
                         {formatCurrencyBRL(product.price)}
                       </span>
                     </li>
@@ -102,7 +121,7 @@ export function Header() {
           <div className="relative">
             <button
               className="inline-flex items-center gap-1 rounded-full border border-slate-800/90 bg-slate-900/90 px-3 py-1.5 text-[11px] font-medium text-slate-200 hover:bg-slate-800/90"
-              onClick={() => setDepartmentsOpen((prev) => !prev)}
+              onClick={() => togglePanel("departments")}
             >
               <span className="hidden md:inline">Departamentos</span>
               <ChevronDown
@@ -113,7 +132,12 @@ export function Header() {
               />
             </button>
             {departmentsOpen && (
-              <div className="absolute right-0 top-9 z-30 w-64 rounded-2xl border border-slate-800/90 bg-slate-950/98 p-2 shadow-soft">
+              <div
+                role="menu"
+                aria-label="Departamentos"
+                className="absolute right-0 top-9 z-50 w-64 rounded-2xl border border-slate-800/90 bg-slate-950/100 p-2 shadow-soft backdrop-blur-sm"
+                onBlur={() => closePanel()}
+              >
                 <p className="px-2 pb-1 text-[10px] font-medium uppercase tracking-[0.18em] text-slate-500">
                   Departamentos
                 </p>
@@ -138,6 +162,7 @@ export function Header() {
         </div>
 
         <div className="flex items-center gap-3">
+          <ThemeToggle />
           <div className="hidden items-center gap-2 text-right text-xs md:flex">
             <span className="block text-[10px] uppercase tracking-[0.18em] text-slate-500">
               Atendimento
@@ -151,7 +176,7 @@ export function Header() {
             variant="ghost"
             size="icon"
             className="relative h-10 w-10 rounded-full border border-slate-800/80 bg-slate-900/80 text-slate-100 hover:bg-slate-800/80"
-            onClick={open}
+            onClick={() => useUiStore.getState().togglePanel("cart")}
             aria-label="Abrir carrinho"
           >
             <ShoppingCart size={18} />
