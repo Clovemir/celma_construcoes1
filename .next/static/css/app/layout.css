@@ -549,6 +549,9 @@ video {
 .bottom-20 {
   bottom: 5rem;
 }
+.bottom-4 {
+  bottom: 1rem;
+}
 .bottom-5 {
   bottom: 1.25rem;
 }
@@ -564,6 +567,9 @@ video {
 .left-3 {
   left: 0.75rem;
 }
+.left-5 {
+  left: 1.25rem;
+}
 .left-\[22px\] {
   left: 22px;
 }
@@ -572,6 +578,9 @@ video {
 }
 .right-2\.5 {
   right: 0.625rem;
+}
+.right-3 {
+  right: 0.75rem;
 }
 .right-4 {
   right: 1rem;
@@ -599,6 +608,9 @@ video {
 }
 .z-10 {
   z-index: 10;
+}
+.z-20 {
+  z-index: 20;
 }
 .z-40 {
   z-index: 40;
@@ -754,6 +766,9 @@ video {
 }
 .min-h-\[18px\] {
   min-height: 18px;
+}
+.min-h-\[280px\] {
+  min-height: 280px;
 }
 .min-h-screen {
   min-height: 100vh;
@@ -1745,6 +1760,11 @@ video {
   --tw-backdrop-blur: blur(24px);
   backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
 }
+.transition {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
 .transition-all {
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
@@ -1767,6 +1787,9 @@ video {
 }
 .duration-300 {
   transition-duration: 300ms;
+}
+.duration-500 {
+  transition-duration: 500ms;
 }
 .ease-in-out {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
@@ -1963,6 +1986,11 @@ body {
   color: rgb(203 213 225 / var(--tw-text-opacity, 1));
 }
 
+.hover\:text-white:hover {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+}
+
 .hover\:opacity-100:hover {
   opacity: 1;
 }
@@ -1984,6 +2012,10 @@ body {
 
 .focus\:bg-slate-800\/80:focus {
   background-color: rgb(30 41 59 / 0.8);
+}
+
+.focus\:opacity-100:focus {
+  opacity: 1;
 }
 
 .focus\:ring-1:focus {
@@ -2059,6 +2091,10 @@ body {
 .group:hover .group-hover\:text-slate-400 {
   --tw-text-opacity: 1;
   color: rgb(148 163 184 / var(--tw-text-opacity, 1));
+}
+
+.group:hover .group-hover\:opacity-100 {
+  opacity: 1;
 }
 
 @media (min-width: 640px) {
