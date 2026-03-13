@@ -543,6 +543,9 @@ video {
 .-top-1 {
   top: -0.25rem;
 }
+.bottom-0 {
+  bottom: 0px;
+}
 .bottom-20 {
   bottom: 5rem;
 }
@@ -579,11 +582,11 @@ video {
 .top-11 {
   top: 2.75rem;
 }
+.top-16 {
+  top: 4rem;
+}
 .top-2\.5 {
   top: 0.625rem;
-}
-.top-24 {
-  top: 6rem;
 }
 .z-10 {
   z-index: 10;
@@ -593,6 +596,10 @@ video {
 }
 .z-50 {
   z-index: 50;
+}
+.my-2 {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 .mb-3 {
   margin-bottom: 0.75rem;
@@ -696,9 +703,6 @@ video {
 .min-h-\[18px\] {
   min-height: 18px;
 }
-.min-h-\[calc\(100vh-72px\)\] {
-  min-height: calc(100vh - 72px);
-}
 .min-h-screen {
   min-height: 100vh;
 }
@@ -711,11 +715,11 @@ video {
 .w-4 {
   width: 1rem;
 }
-.w-52 {
-  width: 13rem;
-}
 .w-6 {
   width: 1.5rem;
+}
+.w-64 {
+  width: 16rem;
 }
 .w-72 {
   width: 18rem;
@@ -934,6 +938,9 @@ video {
 .border-l {
   border-left-width: 1px;
 }
+.border-r {
+  border-right-width: 1px;
+}
 .border-t {
   border-top-width: 1px;
 }
@@ -969,6 +976,9 @@ video {
 }
 .border-slate-800\/50 {
   border-color: rgb(30 41 59 / 0.5);
+}
+.border-slate-800\/60 {
+  border-color: rgb(30 41 59 / 0.6);
 }
 .border-slate-800\/80 {
   border-color: rgb(30 41 59 / 0.8);
@@ -1289,9 +1299,6 @@ video {
 .pl-9 {
   padding-left: 2.25rem;
 }
-.pr-2 {
-  padding-right: 0.5rem;
-}
 .pt-1 {
   padding-top: 0.25rem;
 }
@@ -1473,6 +1480,12 @@ video {
 .line-through {
   text-decoration-line: line-through;
 }
+.opacity-0 {
+  opacity: 0;
+}
+.opacity-100 {
+  opacity: 1;
+}
 .opacity-40 {
   opacity: 0.4;
 }
@@ -1547,8 +1560,14 @@ video {
 .duration-300 {
   transition-duration: 300ms;
 }
+.ease-in-out {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
 .ease-out {
   transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+}
+.\[scrollbar-width\:none\] {
+  scrollbar-width: none;
 }
 
 :root {
@@ -1764,6 +1783,10 @@ body {
     right: 1.75rem;
   }
 
+  .md\:top-\[72px\] {
+    top: 72px;
+  }
+
   .md\:block {
     display: block;
   }
@@ -1817,11 +1840,6 @@ body {
     padding-right: 1.25rem;
   }
 
-  .md\:px-6 {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-  }
-
   .md\:py-12 {
     padding-top: 3rem;
     padding-bottom: 3rem;
@@ -1860,10 +1878,6 @@ body {
 
 @media (min-width: 1024px) {
 
-  .lg\:w-60 {
-    width: 15rem;
-  }
-
   .lg\:grid-cols-3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -1886,5 +1900,9 @@ body {
   .xl\:grid-cols-4 {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
+}
+
+.\[\&\:\:-webkit-scrollbar\]\:hidden::-webkit-scrollbar {
+  display: none;
 }
 

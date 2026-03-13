@@ -31,7 +31,7 @@ interface MobileCategoryBarProps {
 
 export function MobileCategoryBar({ active, onSelect }: MobileCategoryBarProps) {
   return (
-    <div className="flex gap-2 overflow-x-auto pb-1 md:hidden">
+    <div className="flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
       <button
         onClick={() => onSelect(null)}
         className={`flex shrink-0 items-center gap-1.5 rounded-full border px-3 py-1.5 text-[11px] font-medium transition-all ${

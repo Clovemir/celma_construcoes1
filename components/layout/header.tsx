@@ -1,11 +1,12 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { ShoppingCart, Search, Menu, Phone, X } from "lucide-react";
+import { ShoppingCart, Search, Phone, X, LayoutGrid } from "lucide-react";
 import { PRODUCTS } from "@/constants";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/store/cart-store";
+import { useCategoryStore } from "@/store/category-store";
 import { formatCurrencyBRL } from "@/lib/utils";
 
 export function Header() {
@@ -13,7 +14,8 @@ export function Header() {
   const [debouncedQuery, setDebouncedQuery] = useState("");
   const [showSearchResults, setShowSearchResults] = useState(false);
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
-  const { items, open } = useCart();
+  const { items, open: openCart } = useCart();
+  const { toggle: toggleSidebar, activeCategory } = useCategoryStore();
 
   const totalItems = items.reduce((acc, item) => acc + item.quantity, 0);
 
@@ -39,8 +41,20 @@ export function Header() {
   return (
     <header className="sticky top-0 z-40 border-b border-slate-800/80 bg-slate-950/95 backdrop-blur-xl">
       <div className="container flex h-16 items-center justify-between gap-3 md:h-[72px]">
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2.5">
+        <div className="flex items-center gap-2">
+          <button
+            onClick={toggleSidebar}
+            className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border transition-colors ${
+              activeCategory !== null
+                ? "border-orange-500/50 bg-orange-500/15 text-orange-400"
+                : "border-slate-800/80 bg-slate-900/80 text-slate-400 hover:bg-slate-800 hover:text-slate-100"
+            }`}
+            aria-label="Abrir departamentos"
+          >
+            <LayoutGrid size={16} />
+          </button>
+
+          <div className="flex items-center gap-2">
             <div className="flex h-9 w-9 items-center justify-center rounded-2xl bg-gradient-to-br from-orange-500 to-amber-400 text-slate-950 shadow-soft">
               <span className="text-base font-black tracking-tight">C</span>
             </div>
@@ -119,7 +133,7 @@ export function Header() {
             variant="ghost"
             size="icon"
             className="relative h-9 w-9 rounded-full border border-slate-800/80 bg-slate-900/80 text-slate-100 hover:bg-slate-800/80"
-            onClick={open}
+            onClick={openCart}
             aria-label="Abrir carrinho"
           >
             <ShoppingCart size={17} />
