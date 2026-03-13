@@ -7,9 +7,9 @@ import { SupportWidget } from "@/components/support/support-widget";
 import { CartDrawer } from "@/components/cart/cart-drawer";
 
 export const metadata: Metadata = {
-  title: "Celma Construções | E-commerce",
+  title: "Celma Construções | Materiais para Obra",
   description:
-    "E-commerce moderno de materiais de construção da Celma Construções.",
+    "E-commerce de materiais de construção. Portfólio completo com entrega rápida na região metropolitana de São Paulo.",
 };
 
 export default function RootLayout({
@@ -23,7 +23,7 @@ export default function RootLayout({
         <CartProvider>
           <div className="flex min-h-screen flex-col">
             <Header />
-            <main className="flex-1 bg-gradient-to-b from-slate-950 via-slate-950 to-slate-950/95">
+            <main className="flex-1">
               {children}
             </main>
             <Footer />
@@ -35,4 +35,3 @@ export default function RootLayout({
     </html>
   );
 }
-
