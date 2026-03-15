@@ -232,7 +232,7 @@ export function OffersSection({ products }: OffersSectionProps) {
             </div>
 
             <div className="relative h-44 w-full overflow-hidden rounded-2xl md:h-auto">
-              <ProductImagePlaceholder categoryId={featured.categoryId} size="lg" />
+              <ProductImagePlaceholder categoryId={featured.categoryId} imageUrl={featured.imageUrl} alt={featured.name} size="lg" />
             </div>
           </div>
         </div>

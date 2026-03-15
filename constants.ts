@@ -10,6 +10,7 @@ export type Product = {
   categoryId: number;
   unit: string;
   stock?: "available" | "low" | "out";
+  description?: string;
 };
 
 export type Category = {

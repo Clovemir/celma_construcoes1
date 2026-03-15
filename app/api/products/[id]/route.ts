@@ -42,12 +42,13 @@ export async function PUT(
       return NextResponse.json({ error: "Campos obrigatórios faltando" }, { status: 400 });
     }
 
+    const { image_url } = body;
     const pool = getPool();
     const result = await pool.query(
       `UPDATE products
        SET name=$1, brand=$2, price=$3, original_price=$4, discount_tag=$5,
-           highlight=$6, category_id=$7, unit=$8, stock=$9, updated_at=NOW()
-       WHERE id=$10
+           highlight=$6, category_id=$7, unit=$8, stock=$9, image_url=$10, updated_at=NOW()
+       WHERE id=$11
        RETURNING *`,
       [
         name,
@@ -59,6 +60,7 @@ export async function PUT(
         parseInt(category_id),
         unit,
         stock || "available",
+        image_url || null,
         params.id,
       ]
     );

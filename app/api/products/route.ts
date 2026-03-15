@@ -34,9 +34,10 @@ export async function POST(req: NextRequest) {
     }
 
     const pool = getPool();
+    const { image_url } = body;
     const result = await pool.query(
-      `INSERT INTO products (name, brand, price, original_price, discount_tag, highlight, category_id, unit, stock)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+      `INSERT INTO products (name, brand, price, original_price, discount_tag, highlight, category_id, unit, stock, image_url)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
        RETURNING *`,
       [
         name,
@@ -48,6 +49,7 @@ export async function POST(req: NextRequest) {
         parseInt(category_id),
         unit,
         stock || "available",
+        image_url || null,
       ]
     );
     return NextResponse.json(result.rows[0], { status: 201 });

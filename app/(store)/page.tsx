@@ -14,6 +14,7 @@ function normalizeProduct(row: any): Product {
     categoryId: row.category_id,
     unit: row.unit,
     stock: row.stock,
+    imageUrl: row.image_url ?? undefined,
   };
 }
 

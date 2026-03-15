@@ -2,6 +2,7 @@
 
 import { useState, useMemo, useEffect } from "react";
 import { ShoppingCart, Search, Phone, X, LayoutGrid } from "lucide-react";
+import Link from "next/link";
 import type { Product } from "@/constants";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -111,21 +112,24 @@ export function Header() {
               </div>
               <ul className="divide-y divide-slate-800/60 pb-1">
                 {searchResults.map((product) => (
-                  <li
-                    key={product.id}
-                    className="flex cursor-pointer items-center justify-between gap-3 px-3 py-2.5 transition-colors hover:bg-slate-900/90"
-                  >
-                    <div className="min-w-0">
-                      <p className="line-clamp-1 text-xs font-medium text-slate-100">
-                        {product.name}
-                      </p>
-                      <p className="text-[10px] text-slate-500">
-                        {product.brand} · {product.unit}
-                      </p>
-                    </div>
-                    <span className="whitespace-nowrap text-xs font-semibold text-orange-300">
-                      {formatCurrencyBRL(product.price)}
-                    </span>
+                  <li key={product.id}>
+                    <Link
+                      href={`/products/${product.id}`}
+                      className="flex cursor-pointer items-center justify-between gap-3 px-3 py-2.5 transition-colors hover:bg-slate-900/90"
+                      onClick={() => { setQuery(""); setShowSearchResults(false); }}
+                    >
+                      <div className="min-w-0">
+                        <p className="line-clamp-1 text-xs font-medium text-slate-100">
+                          {product.name}
+                        </p>
+                        <p className="text-[10px] text-slate-500">
+                          {product.brand} · {product.unit}
+                        </p>
+                      </div>
+                      <span className="whitespace-nowrap text-xs font-semibold text-orange-300">
+                        {formatCurrencyBRL(product.price)}
+                      </span>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -186,16 +190,19 @@ export function Header() {
           {showSearchResults && searchResults.length > 0 && (
             <ul className="mt-2 divide-y divide-slate-800/60 rounded-xl border border-slate-800/80 bg-slate-900/80">
               {searchResults.map((product) => (
-                <li
-                  key={product.id}
-                  className="flex items-center justify-between gap-3 px-3 py-2.5"
-                >
-                  <p className="line-clamp-1 text-xs text-slate-100">
-                    {product.name}
-                  </p>
-                  <span className="whitespace-nowrap text-xs font-semibold text-orange-300">
-                    {formatCurrencyBRL(product.price)}
-                  </span>
+                <li key={product.id}>
+                  <Link
+                    href={`/products/${product.id}`}
+                    className="flex items-center justify-between gap-3 px-3 py-2.5 hover:bg-slate-800/80 transition-colors"
+                    onClick={() => { setQuery(""); setShowSearchResults(false); setMobileSearchOpen(false); }}
+                  >
+                    <p className="line-clamp-1 text-xs text-slate-100">
+                      {product.name}
+                    </p>
+                    <span className="whitespace-nowrap text-xs font-semibold text-orange-300">
+                      {formatCurrencyBRL(product.price)}
+                    </span>
+                  </Link>
                 </li>
               ))}
             </ul>

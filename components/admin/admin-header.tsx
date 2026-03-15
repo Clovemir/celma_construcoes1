@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { LayoutDashboard, Package, ShoppingBag, LogOut } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
@@ -12,6 +13,13 @@ const navItems = [
 
 export function AdminHeader() {
   const pathname = usePathname();
+  const router = useRouter();
+
+  async function handleLogout() {
+    await fetch("/api/admin/logout", { method: "POST" });
+    router.push("/admin/login");
+    router.refresh();
+  }
 
   return (
     <header className="sticky top-0 z-40 border-b border-slate-800/80 bg-slate-950/95 backdrop-blur-xl">
@@ -50,7 +58,7 @@ export function AdminHeader() {
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           <Link
             href="/"
             className="flex items-center gap-1.5 rounded-xl border border-slate-800/80 bg-slate-900/80 px-3 py-2 text-xs font-medium text-slate-400 transition-colors hover:bg-slate-800 hover:text-slate-100"
@@ -58,6 +66,14 @@ export function AdminHeader() {
             <ShoppingBag size={13} />
             <span className="hidden sm:inline">Ver loja</span>
           </Link>
+          <button
+            onClick={handleLogout}
+            className="flex items-center gap-1.5 rounded-xl border border-slate-800/80 bg-slate-900/80 px-3 py-2 text-xs font-medium text-slate-400 transition-colors hover:border-red-500/40 hover:bg-red-500/10 hover:text-red-400"
+            title="Sair"
+          >
+            <LogOut size={13} />
+            <span className="hidden sm:inline">Sair</span>
+          </button>
         </div>
       </div>
     </header>

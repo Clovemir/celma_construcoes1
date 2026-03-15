@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import type { Product } from "@/constants";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -48,8 +49,12 @@ export function ProductGrid({ products }: ProductGridProps) {
                 : "border-slate-800/80 hover:border-slate-600/70"
             }`}
           >
-            <div className="relative h-40 w-full overflow-hidden bg-slate-900">
-              <ProductImagePlaceholder categoryId={product.categoryId} />
+            <Link href={`/products/${product.id}`} className="relative block h-40 w-full overflow-hidden bg-slate-900">
+              <ProductImagePlaceholder
+                categoryId={product.categoryId}
+                imageUrl={product.imageUrl}
+                alt={product.name}
+              />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent" />
 
               <div className="absolute left-2.5 top-2.5 flex flex-wrap gap-1.5">
@@ -81,13 +86,13 @@ export function ProductGrid({ products }: ProductGridProps) {
                   {qty}
                 </div>
               )}
-            </div>
+            </Link>
 
-            <div className="flex flex-1 flex-col gap-1.5 px-3.5 py-3">
+            <Link href={`/products/${product.id}`} className="flex flex-1 flex-col gap-1.5 px-3.5 py-3">
               <p className="text-[10px] font-medium uppercase tracking-[0.18em] text-slate-500">
                 {product.brand}
               </p>
-              <h3 className="line-clamp-2 text-sm font-medium leading-snug text-slate-100">
+              <h3 className="line-clamp-2 text-sm font-medium leading-snug text-slate-100 group-hover:text-orange-300 transition-colors">
                 {product.name}
               </h3>
               <div className="mt-auto pt-2">
@@ -108,7 +113,7 @@ export function ProductGrid({ products }: ProductGridProps) {
                   Até 6x sem juros
                 </p>
               </div>
-            </div>
+            </Link>
 
             <div className="px-3.5 pb-3.5">
               {qty === 0 ? (

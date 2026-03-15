@@ -28,6 +28,7 @@ type Product = {
   category_id: number;
   unit: string;
   stock: "available" | "low" | "out";
+  image_url: string | null;
 };
 
 const STOCK_LABEL: Record<string, { label: string; cls: string }> = {
@@ -93,6 +94,7 @@ export function ProductsTable() {
       category_id: String(p.category_id),
       unit: p.unit,
       stock: p.stock,
+      image_url: p.image_url ?? "",
     });
     setFormOpen(true);
   }
@@ -244,7 +246,7 @@ export function ProductsTable() {
                         <td className="px-5 py-3.5">
                           <div className="flex items-center gap-3">
                             <div className="h-10 w-10 shrink-0 overflow-hidden rounded-xl border border-slate-800/60 bg-slate-800">
-                              <ProductImagePlaceholder categoryId={p.category_id} />
+                              <ProductImagePlaceholder categoryId={p.category_id} imageUrl={p.image_url ?? undefined} alt={p.name} />
                             </div>
                             <div>
                               <p className="font-medium text-slate-100 line-clamp-1">

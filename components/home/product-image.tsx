@@ -42,20 +42,33 @@ const ICON_COLOR_MAP: Record<number, string> = {
 
 interface ProductImageProps {
   categoryId: number;
+  imageUrl?: string;
+  alt?: string;
   className?: string;
   size?: "sm" | "md" | "lg";
 }
 
 export function ProductImagePlaceholder({
   categoryId,
+  imageUrl,
+  alt,
   className = "",
   size = "md",
 }: ProductImageProps) {
   const Icon = ICON_MAP[categoryId] ?? Package;
   const gradient = GRADIENT_MAP[categoryId] ?? "from-slate-700 to-slate-900";
   const iconColor = ICON_COLOR_MAP[categoryId] ?? "text-slate-400";
-
   const iconSize = size === "sm" ? 24 : size === "lg" ? 48 : 32;
+
+  if (imageUrl) {
+    return (
+      <img
+        src={imageUrl}
+        alt={alt ?? ""}
+        className={`h-full w-full object-cover ${className}`}
+      />
+    );
+  }
 
   return (
     <div
